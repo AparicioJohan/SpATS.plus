@@ -4,7 +4,6 @@
 
 library(SpATS)
 
-
 # AIC 
 AIC.SpATS <- function(Modelo){
   p <- length(Modelo$coeff[!attr(Modelo$coeff,"random")])   # number of fixed coefficients
@@ -84,11 +83,9 @@ R.square <- function(Model){
   return(round(R,3))
 }
 
-
 ###########################
 #       Example
 ###########################
-
 
 # data(wheatdata)
 # summary(wheatdata)
