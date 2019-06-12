@@ -1,2 +1,2 @@
 # SpATS.plus
-Additional functions for SpATS
+Additional functions for SpATS package
