@@ -102,12 +102,15 @@ R.square <- function(Model){
 #             control =  list(tolerance = 1e-03))
 # 
 # m1 <- SpATS(response = "yield", spatial = ~ PSANOVA(col, row, nseg = c(10,20), degree = 3, pord = 2), 
-#             genotype = "geno", fixed = ~ colcode + rowcode, random = ~ R , data = wheatdata, 
+#             genotype = "geno", fixed = ~ colcode + rowcode, random = ~ R + C + rep, data = wheatdata, 
 #             control =  list(tolerance = 1e-03))
 # 
-# Lik.ratio.test(Model_nested = m1,Model_full = m0)
+# Lik.ratio.test(Model_nested = m0,Model_full = m1)
 # 
 # AIC(m0); AIC(m1)
+# 
 # BIC(m0); BIC(m1)
+# 
 # R.square(m0);R.square(m1)
+
 
