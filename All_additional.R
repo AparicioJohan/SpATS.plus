@@ -1,5 +1,5 @@
 ###########################
-# ALL additional function
+# ALL additional functions
 ###########################
 
 library(SpATS)
