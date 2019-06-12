@@ -1,9 +1,11 @@
 ###########################
-# ALL additional functions
+# ALL additional function
 ###########################
 
 library(SpATS)
 
+
+# AIC 
 AIC.SpATS <- function(Modelo){
   p <- length(Modelo$coeff[!attr(Modelo$coeff,"random")])   # number of fixed coefficients
   q <- length(Modelo$var.comp) + 1                          # number of random components + residual variance
@@ -12,6 +14,7 @@ AIC.SpATS <- function(Modelo){
   return(aic)
 }
 
+# BIC
 BIC.SpATS <- function(Modelo){
   p <- length(Modelo$coeff[!attr(Modelo$coeff,"random")])   # number of fixed coefficients
   q <- length(Modelo$var.comp) + 1                          # number of random components + residual variance
@@ -21,6 +24,7 @@ BIC.SpATS <- function(Modelo){
   return(bic)
 }
 
+# Likelihood Ratio Test
 Lik.ratio.test <- function(Model_nested,Model_full){
   
   p1 <- length(Model_nested$coeff[!attr(Model_nested$coeff,"random")])
@@ -65,7 +69,7 @@ Lik.ratio.test <- function(Model_nested,Model_full){
   
 }
 
-
+# Pseudo R square
 R.square <- function(Model){
   
   response      <- Model$data[,Model$model$response]  
@@ -79,3 +83,31 @@ R.square <- function(Model){
   names(R) <- "r.square"
   return(round(R,3))
 }
+
+
+###########################
+#       Example
+###########################
+
+
+# data(wheatdata)
+# summary(wheatdata)
+# 
+# # Create factor variable for row and columns
+# wheatdata$R <- as.factor(wheatdata$row)
+# wheatdata$C <- as.factor(wheatdata$col)
+# 
+# m0 <- SpATS(response = "yield", spatial = ~ PSANOVA(col, row, nseg = c(10,20), degree = 3, pord = 2), 
+#             genotype = "geno", fixed = ~ colcode + rowcode, random = ~ R + C, data = wheatdata, 
+#             control =  list(tolerance = 1e-03))
+# 
+# m1 <- SpATS(response = "yield", spatial = ~ PSANOVA(col, row, nseg = c(10,20), degree = 3, pord = 2), 
+#             genotype = "geno", fixed = ~ colcode + rowcode, random = ~ R , data = wheatdata, 
+#             control =  list(tolerance = 1e-03))
+# 
+# Lik.ratio.test(Model_nested = m1,Model_full = m0)
+# 
+# AIC(m0); AIC(m1)
+# BIC(m0); BIC(m1)
+# R.square(m0);R.square(m1)
+
