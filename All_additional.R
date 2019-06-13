@@ -83,6 +83,13 @@ R.square <- function(Model){
   return(round(R,3))
 }
 
+# Number of estimates
+npars.SpATS <- function(Model){
+  p <- length(Model$coeff[!attr(Model$coeff,"random")])  # number of fixed coefficients
+  q <- length(Model$var.comp) + 1                        # number of random components + residual variance
+  return(p+q)
+}
+
 ###########################
 #       Example
 ###########################
