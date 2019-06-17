@@ -90,6 +90,24 @@ npars.SpATS <- function(Model){
   return(p+q)
 }
 
+
+autoplot.SpATS <- function(Model,...){
+  library(ggplot2)
+  library(ggpubr)
+  response      <- Model$data[,Model$model$response]  
+  genotype      <- Model$data[,Model$model$geno$genotype]
+  var.res       <- Model$psi[1]
+  fitted        <- Model$fitted
+  residuals     <- Model$residuals
+  stand.res     <- residuals/sqrt(var.res)
+  inf.s         <- data.frame(genotype,response,fitted,residuals,stand.res) 
+  
+  p1 <- ggplot(inf.s,aes(x=fitted,y=stand.res))+geom_point(...)+ labs(x="Fitted values",y="Standardized residuals", title = "Residuals vs Fitted")
+  p2 <- ggplot(inf.s, aes(sample=stand.res))+stat_qq(...)+stat_qq_line()+labs(x="Theorical Quantile",y="Standardized residuals",title = "Normal Q-Q")
+  
+  return(ggarrange(p1,p2))
+}
+
 ###########################
 #       Example
 ###########################
@@ -116,5 +134,7 @@ npars.SpATS <- function(Model){
 # BIC(m0); BIC(m1)
 # 
 # R.square(m0);R.square(m1)
+#
+# autoplot(m0,alpha=0.4,size=3)
 
 
