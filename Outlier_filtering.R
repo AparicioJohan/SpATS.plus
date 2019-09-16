@@ -1,13 +1,10 @@
 
-
 # Function for clean_datasets using SpATS
-
 
 library(SpATS)
 library(tidyverse)
 library(data.table)
 source("https://raw.githubusercontent.com/AparicioJohan/SpATS.plus/master/All_additional.R")     # SpATS PLUS
-
 
 Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NULL , fixed=NULL, random=NULL, col="col", row="row"){
   
@@ -16,12 +13,10 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   w <- 1                                         # Starter 
   k <- Num_desv                                  # Number of standard deviations to consider extreme outliers 
   
-  
   if(inherits(fixed, "character"))
     fixed <- as.formula(fixed)
   if(inherits(random, "character"))
     random <- as.formula(random)
-  
   
   while (w>=1) {
     
@@ -66,6 +61,7 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   }
   
   Clean_VEF <- Datos
+  Clean_VEF <- Clean_VEF[,-c(ncol(Clean_VEF),ncol(Clean_VEF)-1 )]
   
   BLUPs <- predict(object = Modelo, which = Geno) %>% 
       select(Geno, predicted.values)
@@ -91,5 +87,3 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
 #              fixed = NULL,
 #              random = ~ col_f + row_f,
 #              col= "col" , row = "row"  )
-
-
