@@ -70,7 +70,7 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   names(BLUPs)[ncol(BLUPs)] <- "Trial"
   cat('\n')
   
-  k=list(BLUPs=BLUPs, data_clean=Clean_VEF)
+  k=list(BLUPs=BLUPs, data_clean=Clean_VEF, Model=Modelo)
   k
   
 }
