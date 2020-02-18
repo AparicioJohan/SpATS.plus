@@ -79,7 +79,7 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   r2 <- as.numeric(R.square(Modelo))
   
   Sum <- data.frame(Exp= paste0(name) , VarE=VarE, VarG=VarG, rep=replicate , r2=r2)
-  Sum <- Sum %>% mutate(H=round(VarG/(VarG+VarE/replicate),2))
+  Sum$H <- as.numeric(getHeritability(Modelo))
   
   k=list(BLUPs=BLUPs, data_clean=Clean_VEF, Model=Modelo, Remove=remFinal, Summ=Sum)
   k
