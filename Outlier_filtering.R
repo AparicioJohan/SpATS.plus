@@ -18,9 +18,11 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   if(inherits(random, "character"))
     random <- as.formula(random)
   
+  remFinal <- data.frame(Response=as.numeric(),  Genotype = as.character(), col=as.numeric(),row=as.numeric() )
+  
   while (w>=1) {
     
-    Datos[,Geno]<- as.factor(Datos[,Geno])
+    Datos[,Geno] <- as.factor(Datos[,Geno])
     
     Datos$col_f = factor(Datos[,col])
     Datos$row_f = factor(Datos[,row])
@@ -48,7 +50,10 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
     w <- length( which( abs(vect_res) > abs(k * sqrt(Var_resi)) ) )
     
     # What is the most extreme residual ?
-    p <- which( abs(vect_res) > abs(k * sqrt(Var_resi)) )[which.max( abs( vect_res[which(abs(vect_res) > abs(k * sqrt(Var_resi)))] ) )]
+    p <- which( abs(vect_res) > abs( k * sqrt(Var_resi) ) ) # [which.max( abs( vect_res[which(abs(vect_res) > abs(k * sqrt(Var_resi)))] ) )]
+    
+    remTMP <- data.frame(Response=Datos[p,Response],  Genotype = Datos[p,Geno], col=Datos[p,"col"],row=Datos[p,"row"] )
+    remFinal <- rbind(remTMP,remFinal)
     
     Datos[p,Response] <- NA
     
@@ -61,16 +66,16 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   }
   
   Clean_VEF <- Datos
- # Clean_VEF <- Clean_VEF[,-c(ncol(Clean_VEF),ncol(Clean_VEF)-1 )]
+  # Clean_VEF <- Clean_VEF[,-c(ncol(Clean_VEF),ncol(Clean_VEF)-1 )]
   
   BLUPs <- predict(object = Modelo, which = Geno) %>% 
-      select(Geno, predicted.values, standard.errors)
-
+    select(Geno, predicted.values, standard.errors)
+  
   
   # names(BLUPs)[ncol(BLUPs)] <- "Trial"
   cat('\n')
   
-  k=list(BLUPs=BLUPs, data_clean=Clean_VEF, Model=Modelo)
+  k=list(BLUPs=BLUPs, data_clean=Clean_VEF, Model=Modelo, Remove=remFinal)
   k
   
 }
