@@ -61,13 +61,13 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   }
   
   Clean_VEF <- Datos
-  Clean_VEF <- Clean_VEF[,-c(ncol(Clean_VEF),ncol(Clean_VEF)-1 )]
+ # Clean_VEF <- Clean_VEF[,-c(ncol(Clean_VEF),ncol(Clean_VEF)-1 )]
   
   BLUPs <- predict(object = Modelo, which = Geno) %>% 
-      select(Geno, predicted.values)
+      select(Geno, predicted.values, standard.errors)
 
   
-  names(BLUPs)[ncol(BLUPs)] <- "Trial"
+  # names(BLUPs)[ncol(BLUPs)] <- "Trial"
   cat('\n')
   
   k=list(BLUPs=BLUPs, data_clean=Clean_VEF, Model=Modelo)
