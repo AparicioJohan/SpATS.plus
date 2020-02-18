@@ -75,7 +75,7 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   # names(BLUPs)[ncol(BLUPs)] <- "Trial"
   VarG <- as.numeric(Modelo$var.comp[Geno])
   VarE <- as.numeric(Modelo$psi[1])
-  replicate <- c()
+  replicate <- NA
   r2 <- as.numeric(R.square(Modelo))
   
   Sum <- data.frame(Exp= paste0(name) , VarE=VarE, VarG=VarG, rep=replicate , r2=r2)
