@@ -6,7 +6,7 @@ library(tidyverse)
 library(data.table)
 source("https://raw.githubusercontent.com/AparicioJohan/SpATS.plus/master/All_additional.R")     # SpATS PLUS
 
-Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NULL , fixed=NULL, random=NULL, col="col", row="row"){
+Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NULL , fixed=NULL, random=NULL, col="col", row="row", name="Exp"){
   
   Datos <- droplevels(data)
   
