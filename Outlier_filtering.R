@@ -70,7 +70,7 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   
   BLUPs <- predict(object = Modelo, which = Geno) %>% 
     select(Geno, predicted.values, standard.errors)
-  
+  names(BLUPs) <- c("level","estimate","std.error") 
   
   # names(BLUPs)[ncol(BLUPs)] <- "Trial"
   VarG <- as.numeric(Modelo$var.comp[Geno])
