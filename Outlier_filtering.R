@@ -69,7 +69,9 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
   # Clean_VEF <- Clean_VEF[,-c(ncol(Clean_VEF),ncol(Clean_VEF)-1 )]
   
   BLUPs <- predict(object = Modelo, which = Geno) %>% 
-    select(Geno, predicted.values, standard.errors)
+    select(Geno, predicted.values, standard.errors) %>%
+    mutate(predicted.values=predicted.values-mean(predicted.values,na.rm=T))
+                   
   names(BLUPs) <- c("level","estimate","std.error") 
   
   # names(BLUPs)[ncol(BLUPs)] <- "Trial"
