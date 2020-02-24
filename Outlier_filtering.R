@@ -6,7 +6,15 @@ library(tidyverse)
 library(data.table)
 source("https://raw.githubusercontent.com/AparicioJohan/SpATS.plus/master/All_additional.R")     # SpATS PLUS
 
-Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NULL , fixed=NULL, random=NULL, col="col", row="row", name="Exp"){
+Clean_SpATS <- function(Response, 
+                        Geno , 
+                        Num_desv=3, 
+                        Show_results=TRUE,
+                        data=NULL , 
+                        fixed=NULL,
+                        random=NULL, 
+                        col="col", row="row", 
+                        name="Exp", iter=NULL){
   
   Datos <- droplevels(data)
   
@@ -47,7 +55,8 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
     vect_res <- residuals(Modelo)
     
     # Number of extreme residuals (above k standard deviations) in this iteration
-    w <- length( which( abs(vect_res) > abs(k * sqrt(Var_resi)) ) )
+    if(is.null(iter))  w <- length( which( abs(vect_res) > abs(k * sqrt(Var_resi)) ) )
+    else w <- 0
     
     # What is the most extreme residual ?
     p <- which( abs(vect_res) > abs( k * sqrt(Var_resi) ) ) # [which.max( abs( vect_res[which(abs(vect_res) > abs(k * sqrt(Var_resi)))] ) )]
