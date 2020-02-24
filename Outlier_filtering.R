@@ -59,7 +59,7 @@ Clean_SpATS <- function(Response, Geno , Num_desv=3, Show_results=TRUE, data=NUL
     
     
     if (Show_results==TRUE) {
-      cat("\n" , "N_xtreme_residuals:" , w, "\tHeritability:", getHeritability(Modelo), "\tAIC:", AIC(Modelo), "\n"  )  
+      cat("\n" , "N_xtreme_residuals:" , w, "\tHeritability:", getHeritability(Modelo), "\tAIC:", AIC(Modelo)  )  
     }
     
     
