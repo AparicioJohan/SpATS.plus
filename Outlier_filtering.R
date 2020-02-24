@@ -55,8 +55,7 @@ Clean_SpATS <- function(Response,
     vect_res <- residuals(Modelo)
     
     # Number of extreme residuals (above k standard deviations) in this iteration
-    if(is.null(iter))  w <- length( which( abs(vect_res) > abs(k * sqrt(Var_resi)) ) )
-    else w <- 0
+    w <- length( which( abs(vect_res) > abs(k * sqrt(Var_resi)) ) )
     
     # What is the most extreme residual ?
     p <- which( abs(vect_res) > abs( k * sqrt(Var_resi) ) ) # [which.max( abs( vect_res[which(abs(vect_res) > abs(k * sqrt(Var_resi)))] ) )]
@@ -71,7 +70,8 @@ Clean_SpATS <- function(Response,
       cat("\n" , "N_xtreme_residuals:" , w, "\tHeritability:", getHeritability(Modelo), "\tAIC:", AIC(Modelo)  )  
     }
     
-    
+    if(!is.null(iter)) w <- 0
+                   
   }
   
   Clean_VEF <- Datos
