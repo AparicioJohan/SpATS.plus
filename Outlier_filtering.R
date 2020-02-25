@@ -73,7 +73,7 @@ Clean_SpATS <- function(Response,
     r2 <- as.numeric(R.square(Modelo))
     Sum <- data.frame(Exp= paste0(name) , VarE=VarE, VarG=VarG, rep=replicate , r2=r2)
     Sum$H <- as.numeric(getHeritability(Modelo))      
-    history <- rbind(Sum,history)               
+    history <- rbind(history,Sum)               
     
     if (Show_results==TRUE) {
       cat("\n" , "N_xtreme_residuals:" , w, "\tHeritability:", getHeritability(Modelo), "\tAIC:", AIC(Modelo)  )  
