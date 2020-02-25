@@ -27,6 +27,7 @@ Clean_SpATS <- function(Response,
     random <- as.formula(random)
   
   remFinal <- data.frame(Response=as.numeric(),  Genotype = as.character(), col=as.numeric(),row=as.numeric() )
+  history <- data.frame(Exp=as.character(), VarE=as.numeric(), VarG=as.numeric(), rep=as.numeric(),r2=as.numeric(), H=as.numeric())
   
   while (w>=1) {
     
@@ -65,6 +66,14 @@ Clean_SpATS <- function(Response,
     
     Datos[p,Response] <- NA
     
+    # History
+    VarG <- as.numeric(Modelo$var.comp[Geno])
+    VarE <- as.numeric(Modelo$psi[1])
+    replicate <- NA
+    r2 <- as.numeric(R.square(Modelo))
+    Sum <- data.frame(Exp= paste0(name) , VarE=VarE, VarG=VarG, rep=replicate , r2=r2)
+    Sum$H <- as.numeric(getHeritability(Modelo))      
+    History <- rbind(Sum,History)               
     
     if (Show_results==TRUE) {
       cat("\n" , "N_xtreme_residuals:" , w, "\tHeritability:", getHeritability(Modelo), "\tAIC:", AIC(Modelo)  )  
@@ -92,7 +101,7 @@ Clean_SpATS <- function(Response,
   Sum <- data.frame(Exp= paste0(name) , VarE=VarE, VarG=VarG, rep=replicate , r2=r2)
   Sum$H <- as.numeric(getHeritability(Modelo))
   
-  k=list(BLUPs=BLUPs, data_clean=Clean_VEF, Model=Modelo, Remove=remFinal, Summ=Sum)
+  k=list(BLUPs=BLUPs, data_clean=Clean_VEF, Model=Modelo, Remove=remFinal, Summ=Sum, History=History)
   k
   
 }
